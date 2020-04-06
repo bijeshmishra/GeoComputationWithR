@@ -1,0 +1,64 @@
+source('~/Documents/GitHub/GeoComputationWithR/R/GeoComputation.R')
+getwd()
+getwd()
+setwd("~/Documents/GitHub/GeoComputationWithR")
+source('~/Documents/GitHub/GeoComputationWithR/R/GeoComputation.R')
+devtools::install_github("geocompr/geocompkg")
+bookdown::render_book("index.Rmd") # to build the book locally.
+install.packages("bookdown")
+library(bookdown)
+library(bookdown)
+bookdown::render_book("index.Rmd") # to build the book locally.
+browseURL("_book/index.html") # to view it.
+bookdown::render_book("index.Rmd") # to build the book locally.
+browseURL("_book/index.html") # to view it.
+bookdown::render_book("index.Rmd") # to build the book locally.
+source('~/Documents/GitHub/GeoComputationWithR/R/GeoComputation.R')
+source('~/Documents/GitHub/GeoComputationWithR/R/GeoComputation.R')
+source('~/Documents/GitHub/GeoComputationWithR/R/GeoComputation.R')
+source('~/Documents/GitHub/GeoComputationWithR/R/GeoComputation.R')
+leaflet() %>%
+addProviderTiles("NASAGIBS.ViirsEarthAtNight2012") %>%
+addMarkers(lng = c(-3, 23, 11),
+lat = c(52, 53, 49),
+popup = popup)
+devtools::install_github("Nowosad/spDataLarge")
+###### Chapter 2: Geographic Data in R #####
+install.packages("sf")
+install.packages("raster")
+install.packages("spData")
+devtools::install_github("Nowosad/spDataLarge")
+install.packages("devtools")
+devtools::install_github("Nowosad/spDataLarge")
+force = TRUE
+devtools::install_github("Nowosad/spDataLarge", force = TRUE)
+library(c(sf, raster))
+###### Chapter 2: Geographic Data in R #####
+install.packages("sf")
+###### Chapter 2: Geographic Data in R #####
+install.packages("sf")
+install.packages(c("backports", "fs", "glue", "lattice", "tibble", "tinytex", "xml2"))
+install.packages(c("backports", "fs", "glue", "lattice", "tibble", "tinytex", "xml2"))
+install.packages(c("backports", "fs", "glue", "lattice", "tibble", "tinytex", "xml2"))
+install.packages(c("backports", "fs", "glue", "lattice", "tibble", "tinytex", "xml2"))
+install.packages(c("backports", "fs", "glue", "lattice", "tibble", "tinytex", "xml2"))
+install.packages(c("backports", "fs", "glue", "lattice", "tibble", "tinytex", "xml2"))
+detach("package:base", unload = TRUE)
+detach("package:datasets", unload = TRUE)
+detach("package:graphics", unload = TRUE)
+detach("package:grDevices", unload = TRUE)
+detach("package:methods", unload = TRUE)
+detach("package:utils", unload = TRUE)
+install.packages(c("backports", "fs", "glue", "lattice", "tibble", "tinytex", "xml2"))
+install.packages(c("backports", "fs", "glue", "lattice", "tibble", "tinytex", "xml2"))
+install.packages(c("backports", "fs", "glue", "lattice", "tibble", "tinytex", "xml2"))
+install.packages(c("backports", "fs", "glue", "lattice", "tibble", "tinytex", "xml2"))
+install.packages("sf")
+install.packages("raster")
+library(raster)
+library(raster)
+library(spData)
+library(devtools)
+library(spDataLarge)
+install.packages("sf")
+source('~/Documents/GitHub/GeoComputationWithR/R/GeoComputation.R')
