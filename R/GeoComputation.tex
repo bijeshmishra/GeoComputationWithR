@@ -1,0 +1,771 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={GeoComputation.R},
+            pdfauthor={bmishra},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{GeoComputation.R}
+\author{bmishra}
+\date{2020-04-07}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Set working directory:}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"~/Documents/GitHub/GeoComputationWithR"}\NormalTok{)}
+\CommentTok{# ##### Contribute  (Not Necesssary for Class) #####}
+\CommentTok{# devtools::install_github("geocompr/geocompkg") #Reporduce code in the book.}
+\CommentTok{# library(bookdown)}
+\CommentTok{# bookdown::render_book("index.Rmd") # to build the book locally.}
+\CommentTok{# browseURL("_book/index.html") # to view it.}
+
+
+\CommentTok{# ##### Chapter 2: Geographic Data in R #####}
+\CommentTok{# # Prerequisites:}
+\CommentTok{# # Install Packages:}
+
+\CommentTok{# # this step is to install library from github:}
+\CommentTok{# install.packages("devtools") #install devtools package. Do not run of devtools is alread present in your machine.}
+\CommentTok{# library(devtools) #load devtools before downloading packages from github.}
+\CommentTok{# install_github("r-spatial/sf") #isntall sf package from github}
+\CommentTok{# devtools::install_github("r-spatial/sf", type = "binary", force = TRUE) #This works without attaching devtools library.}
+
+\CommentTok{# install.packages("raster")}
+\CommentTok{# install.packages("spData")}
+\CommentTok{# install.packages("devtools") #Install this package if you are installing packages from GitHub for the first time.}
+\CommentTok{# devtools::install_github("Nowosad/spDataLarge", force = TRUE) #Need to add "Force = TRUE" to install this package in my MAC.}
+\CommentTok{# install.packages("sf", type = "binary") #I installed binary version of sf. This installed sf package. Hopefully this works as sf.}
+
+\CommentTok{# Load Libraries.}
+\KeywordTok{library}\NormalTok{(raster) }\CommentTok{#class ad function for raster data.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: sp
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(spData) }\CommentTok{#load geographic data.}
+\KeywordTok{library}\NormalTok{(devtools) }\CommentTok{#used to install packages from GitHub.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: usethis
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(spDataLarge) }\CommentTok{#Load larger geograpic Data.}
+\KeywordTok{library}\NormalTok{(sf) }\CommentTok{#class and function for vector data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# # Load data from SpDataLarge if you cannot install the package. Code from Github.}
+\CommentTok{# if(!require(spDataLarge)) \{}
+\CommentTok{#   download.file("https://github.com/Nowosad/spDataLarge/archive/master.zip", "spDataLarge.zip")}
+\CommentTok{#   unzip("spDataLarge.zip")}
+\CommentTok{#   files_rda = list.files("spDataLarge-master/data/", full.names = TRUE)}
+\CommentTok{#   sapply(files_rda, load, envir = .GlobalEnv)}
+\CommentTok{# \}}
+
+\CommentTok{# # 2.1 Introduction}
+\CommentTok{# # 2.2 Vector data}
+
+\CommentTok{# 2.2.1 An introduction to simple features}
+\KeywordTok{vignette}\NormalTok{(}\DataTypeTok{package =} \StringTok{"sf"}\NormalTok{) }\CommentTok{# see which vignettes/descriptions are available}
+\KeywordTok{vignette}\NormalTok{(}\StringTok{"sf1"}\NormalTok{)          }\CommentTok{# an introduction to the package}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## starting httpd help server ...
+\end{verbatim}
+
+\begin{verbatim}
+##  done
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(world)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "iso_a2"    "name_long" "continent" "region_un" "subregion" "type"     
+##  [7] "area_km2"  "pop"       "lifeExp"   "gdpPercap" "geom"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(world)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: plotting the first 9 out of 10 attributes; use max.plot = 10 to plot
+## all
+\end{verbatim}
+
+\includegraphics{GeoComputation_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(world[}\StringTok{"lifeExp"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     lifeExp                 geom    
+##  Min.   :50.62   MULTIPOLYGON :177  
+##  1st Qu.:64.96   epsg:4326    :  0  
+##  Median :72.87   +proj=long...:  0  
+##  Mean   :70.85                      
+##  3rd Qu.:76.78                      
+##  Max.   :83.59                      
+##  NA's   :10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{world_mini =}\StringTok{ }\NormalTok{world[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{]}
+\NormalTok{world_mini}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Simple feature collection with 2 features and 3 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -180 ymin: -18.28799 xmax: 180 ymax: -0.95
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+##   iso_a2 name_long continent                           geom
+## 1     FJ      Fiji   Oceania MULTIPOLYGON (((180 -16.067...
+## 2     TZ  Tanzania    Africa MULTIPOLYGON (((33.90371 -0...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2.2.2 Why simple features?}
+\KeywordTok{library}\NormalTok{(sp)}
+\NormalTok{world_sp =}\StringTok{ }\KeywordTok{as}\NormalTok{(world, }\DataTypeTok{Class =} \StringTok{"Spatial"}\NormalTok{)}
+\NormalTok{world_sf =}\StringTok{ }\KeywordTok{st_as_sf}\NormalTok{(world_sp)}
+
+\CommentTok{# 2.2.3 Basic map making}
+\KeywordTok{plot}\NormalTok{(world[}\DecValTok{3}\OperatorTok{:}\DecValTok{6}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{GeoComputation_files/figure-latex/unnamed-chunk-1-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(world[}\StringTok{"pop"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{GeoComputation_files/figure-latex/unnamed-chunk-1-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{world_asia =}\StringTok{ }\NormalTok{world[world}\OperatorTok{$}\NormalTok{continent }\OperatorTok{==}\StringTok{ "Asia"}\NormalTok{, ]}
+\NormalTok{asia =}\StringTok{ }\KeywordTok{st_union}\NormalTok{(world_asia)}
+\KeywordTok{plot}\NormalTok{(world[}\StringTok{"pop"}\NormalTok{], }\DataTypeTok{reset =} \OtherTok{FALSE}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(asia, }\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{GeoComputation_files/figure-latex/unnamed-chunk-1-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2.2.4 Base plot arguments}
+\KeywordTok{plot}\NormalTok{(world[}\StringTok{"continent"}\NormalTok{], }\DataTypeTok{reset =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{cex =}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(world}\OperatorTok{$}\NormalTok{pop) }\OperatorTok{/}\StringTok{ }\DecValTok{10000}
+\NormalTok{world_cents =}\StringTok{ }\KeywordTok{st_centroid}\NormalTok{(world, }\DataTypeTok{of_largest =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in st_centroid.sf(world, of_largest = TRUE): st_centroid assumes
+## attributes are constant over geometries of x
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =
+## of_largest_polygon): st_centroid does not give correct centroids for longitude/
+## latitude data
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# # I got this warning message after running above line of code. This might the resaon why map of India shrunk down and moved to mid-bottom of plot.}
+\CommentTok{# Warning messages:}
+\CommentTok{#   1: In st_centroid.sf(world, of_largest = TRUE) :}
+\CommentTok{#   st_centroid assumes attributes are constant over geometries of x}
+\CommentTok{# 2: In st_centroid.sfc(st_geometry(x), of_largest_polygon = of_largest_polygon) :}
+\CommentTok{#   st_centroid does not give correct centroids for longitude/latitude data}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{st_geometry}\NormalTok{(world_cents), }\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{cex =}\NormalTok{ cex)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{GeoComputation_files/figure-latex/unnamed-chunk-1-5.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{india =}\StringTok{ }\NormalTok{world[world}\OperatorTok{$}\NormalTok{name_long }\OperatorTok{==}\StringTok{ "India"}\NormalTok{, ]}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{st_geometry}\NormalTok{(india), }\DataTypeTok{expandBB =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.2}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{col =} \StringTok{"gray"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{) }\CommentTok{#When I run this code, the map shrink down to really tiny size and moves down to mid-bottom of plotting region.}
+\KeywordTok{plot}\NormalTok{(world_asia[}\DecValTok{0}\NormalTok{], }\DataTypeTok{add =} \OtherTok{TRUE}\NormalTok{)}
+
+\CommentTok{# # 2.2.5 Geometry types}
+\CommentTok{# # seven most commonly used types: POINT, LINESTRING, POLYGON, MULTIPOINT, MULTILINESTRING, MULTIPOLYGON and GEOMETRYCOLLECTION.}
+
+\CommentTok{# # 2.2.6 Simple feature geometries (sfg)}
+\CommentTok{# # A point: st_point()}
+\CommentTok{# # A linestring: st_linestring()}
+\CommentTok{# # A polygon: st_polygon()}
+\CommentTok{# # A multipoint: st_multipoint()}
+\CommentTok{# # A multilinestring: st_multilinestring()}
+\CommentTok{# # A multipolygon: st_multipolygon()}
+\CommentTok{# # A geometry collection: st_geometrycollection()}
+
+\KeywordTok{st_point}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{2}\NormalTok{))                 }\CommentTok{# XY point}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## POINT (5 2)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{st_point}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{))              }\CommentTok{# XYZ point}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## POINT Z (5 2 3)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{st_point}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DataTypeTok{dim =} \StringTok{"XYM"}\NormalTok{) }\CommentTok{# XYM point}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## POINT M (5 2 1)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{st_point}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{))           }\CommentTok{# XYZM point}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## POINT ZM (5 2 3 1)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# the rbind function simplifies the creation of matrices}
+\CommentTok{# MULTIPOINT}
+\NormalTok{multipoint_matrix =}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\KeywordTok{st_multipoint}\NormalTok{(multipoint_matrix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## MULTIPOINT ((5 2), (1 3), (3 4), (3 2))
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# LINESTRING}
+\NormalTok{linestring_matrix =}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\KeywordTok{st_linestring}\NormalTok{(linestring_matrix)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# POLYGON}
+\NormalTok{polygon_list =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{)))}
+\KeywordTok{st_polygon}\NormalTok{(polygon_list)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5))
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# POLYGON with a hole}
+\NormalTok{polygon_border =}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\NormalTok{polygon_hole =}\StringTok{ }\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{))}
+\NormalTok{polygon_with_hole_list =}\StringTok{ }\KeywordTok{list}\NormalTok{(polygon_border, polygon_hole)}
+\KeywordTok{st_polygon}\NormalTok{(polygon_with_hole_list)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# MULTILINESTRING}
+\NormalTok{multilinestring_list =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)),}
+                            \KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{)))}
+\KeywordTok{st_multilinestring}\NormalTok{((multilinestring_list))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# MULTIPOLYGON}
+\NormalTok{multipolygon_list =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{))),}
+                         \KeywordTok{list}\NormalTok{(}\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{))))}
+\KeywordTok{st_multipolygon}\NormalTok{(multipolygon_list)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## MULTIPOLYGON (((1 5, 2 2, 4 1, 4 4, 1 5)), ((0 2, 1 2, 1 3, 0 3, 0 2)))
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# GEOMETRYCOLLECTION}
+\NormalTok{gemetrycollection_list =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{st_multipoint}\NormalTok{(multipoint_matrix),}
+                              \KeywordTok{st_linestring}\NormalTok{(linestring_matrix))}
+\KeywordTok{st_geometrycollection}\NormalTok{(gemetrycollection_list)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## GEOMETRYCOLLECTION (MULTIPOINT ((5 2), (1 3), (3 4), (3 2)), LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2))
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2.2.7 Simple feature columns (sfc)}
+\CommentTok{# sfc POINT}
+\NormalTok{point1 =}\StringTok{ }\KeywordTok{st_point}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\NormalTok{point2 =}\StringTok{ }\KeywordTok{st_point}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\NormalTok{points_sfc =}\StringTok{ }\KeywordTok{st_sfc}\NormalTok{(point1, point2)}
+\NormalTok{points_sfc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Geometry set for 2 features 
+## geometry type:  POINT
+## dimension:      XY
+## bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
+## epsg (SRID):    NA
+## proj4string:    NA
+\end{verbatim}
+
+\begin{verbatim}
+## POINT (5 2)
+\end{verbatim}
+
+\begin{verbatim}
+## POINT (1 3)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# sfc POLYGON}
+\NormalTok{polygon_list1 =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{)))}
+\NormalTok{polygon1 =}\StringTok{ }\KeywordTok{st_polygon}\NormalTok{(polygon_list1)}
+\NormalTok{polygon_list2 =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)))}
+\NormalTok{polygon2 =}\StringTok{ }\KeywordTok{st_polygon}\NormalTok{(polygon_list2)}
+\NormalTok{polygon_sfc =}\StringTok{ }\KeywordTok{st_sfc}\NormalTok{(polygon1, polygon2)}
+\KeywordTok{st_geometry_type}\NormalTok{(polygon_sfc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] POLYGON POLYGON
+## 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# sfc MULTILINESTRING}
+\NormalTok{multilinestring_list1 =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{2}\NormalTok{)),}
+                             \KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{)))}
+\NormalTok{multilinestring1 =}\StringTok{ }\KeywordTok{st_multilinestring}\NormalTok{((multilinestring_list1))}
+\NormalTok{multilinestring_list2 =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{9}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{9}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{7}\NormalTok{)),}
+                             \KeywordTok{rbind}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{7}\NormalTok{), }\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{8}\NormalTok{)))}
+\NormalTok{multilinestring2 =}\StringTok{ }\KeywordTok{st_multilinestring}\NormalTok{((multilinestring_list2))}
+\NormalTok{multilinestring_sfc =}\StringTok{ }\KeywordTok{st_sfc}\NormalTok{(multilinestring1, multilinestring2)}
+\KeywordTok{st_geometry_type}\NormalTok{(multilinestring_sfc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] MULTILINESTRING MULTILINESTRING
+## 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# sfc GEOMETRY}
+\NormalTok{point_multilinestring_sfc =}\StringTok{ }\KeywordTok{st_sfc}\NormalTok{(point1, multilinestring1)}
+\KeywordTok{st_geometry_type}\NormalTok{(point_multilinestring_sfc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] POINT           MULTILINESTRING
+## 18 Levels: GEOMETRY POINT LINESTRING POLYGON MULTIPOINT ... TRIANGLE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{st_crs}\NormalTok{(points_sfc) }\CommentTok{#Coordinate Reference System: NA.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Coordinate Reference System: NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# EPSG definition}
+\NormalTok{points_sfc_wgs =}\StringTok{ }\KeywordTok{st_sfc}\NormalTok{(point1, point2, }\DataTypeTok{crs =} \DecValTok{4326}\NormalTok{)}
+\KeywordTok{st_crs}\NormalTok{(points_sfc_wgs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Coordinate Reference System:
+##   EPSG: 4326 
+##   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# PROJ4STRING definition}
+\KeywordTok{st_sfc}\NormalTok{(point1, point2, }\DataTypeTok{crs =} \StringTok{"+proj=longlat +datum=WGS84 +no_defs"}\NormalTok{) }\CommentTok{#Note: Sometimes st_crs() will return a proj4string but not an epsg code.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Geometry set for 2 features 
+## geometry type:  POINT
+## dimension:      XY
+## bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+\end{verbatim}
+
+\begin{verbatim}
+## POINT (5 2)
+## POINT (1 3)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2.2.8 The sf class}
+\NormalTok{lnd_point =}\StringTok{ }\KeywordTok{st_point}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\FloatTok{51.5}\NormalTok{))                 }\CommentTok{# sfg object}
+\NormalTok{lnd_geom =}\StringTok{ }\KeywordTok{st_sfc}\NormalTok{(lnd_point, }\DataTypeTok{crs =} \DecValTok{4326}\NormalTok{)           }\CommentTok{# sfc object}
+\NormalTok{lnd_attrib =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(                           }\CommentTok{# data.frame object}
+  \DataTypeTok{name =} \StringTok{"London"}\NormalTok{,}
+  \DataTypeTok{temperature =} \DecValTok{25}\NormalTok{,}
+  \DataTypeTok{date =} \KeywordTok{as.Date}\NormalTok{(}\StringTok{"2017-06-21"}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{lnd_sf =}\StringTok{ }\KeywordTok{st_sf}\NormalTok{(lnd_attrib, }\DataTypeTok{geometry =}\NormalTok{ lnd_geom)    }\CommentTok{# sf object}
+\NormalTok{lnd_sf}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Simple feature collection with 1 feature and 3 fields
+## geometry type:  POINT
+## dimension:      XY
+## bbox:           xmin: 0.1 ymin: 51.5 xmax: 0.1 ymax: 51.5
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+##     name temperature       date         geometry
+## 1 London          25 2017-06-21 POINT (0.1 51.5)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(lnd_sf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "sf"         "data.frame"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2.3 Raster data}
+\CommentTok{# 2.3.1 An introduction to raster}
+\NormalTok{raster_filepath =}\StringTok{ }\KeywordTok{system.file}\NormalTok{(}\StringTok{"raster/srtm.tif"}\NormalTok{, }\DataTypeTok{package =} \StringTok{"spDataLarge"}\NormalTok{)}
+\NormalTok{new_raster =}\StringTok{ }\KeywordTok{raster}\NormalTok{(raster_filepath)}
+\NormalTok{new_raster}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## class      : RasterLayer 
+## dimensions : 457, 465, 212505  (nrow, ncol, ncell)
+## resolution : 0.0008333333, 0.0008333333  (x, y)
+## extent     : -113.2396, -112.8521, 37.13208, 37.51292  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## source     : /Library/Frameworks/R.framework/Versions/3.6/Resources/library/spDataLarge/raster/srtm.tif 
+## names      : srtm 
+## values     : 1024, 2892  (min, max)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(new_raster) }\CommentTok{#Number of rw=ows, columns and layers.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 457 465   1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ncell}\NormalTok{(new_raster) }\CommentTok{#number of cells (pixels)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 212505
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{extent}\NormalTok{(new_raster) }\CommentTok{#raster's spatial resolution}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## class      : Extent 
+## xmin       : -113.2396 
+## xmax       : -112.8521 
+## ymin       : 37.13208 
+## ymax       : 37.51292
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{crs}\NormalTok{(new_raster) }\CommentTok{#coordinate reference system of raster}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## CRS arguments:
+##  +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{help}\NormalTok{(}\StringTok{"raster-package"}\NormalTok{) }\CommentTok{# returns a full list of all available raster functions.}
+
+\CommentTok{# 2.3.2 Basic map making}
+\KeywordTok{plot}\NormalTok{(new_raster)}
+\CommentTok{# 2.3.3 Raster classes}
+\CommentTok{# # Raster package supports numerous drivers with the help of rdgal. To check which drivers are availale, run two commands below:}
+\CommentTok{# raster::writeFormats()}
+\CommentTok{# rgdal::gdalDrivers()}
+\NormalTok{raster_filepath =}\StringTok{ }\KeywordTok{system.file}\NormalTok{(}\StringTok{"raster/srtm.tif"}\NormalTok{, }\DataTypeTok{package =} \StringTok{"spDataLarge"}\NormalTok{)}
+\NormalTok{new_raster =}\StringTok{ }\KeywordTok{raster}\NormalTok{(raster_filepath)}
+\NormalTok{new_raster2 =}\StringTok{ }\KeywordTok{raster}\NormalTok{(}\DataTypeTok{nrows =} \DecValTok{6}\NormalTok{, }\DataTypeTok{ncols =} \DecValTok{6}\NormalTok{, }\DataTypeTok{res =} \FloatTok{0.5}\NormalTok{,}
+                     \DataTypeTok{xmn =} \FloatTok{-1.5}\NormalTok{, }\DataTypeTok{xmx =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{ymn =} \FloatTok{-1.5}\NormalTok{, }\DataTypeTok{ymx =} \FloatTok{1.5}\NormalTok{,}
+                     \DataTypeTok{vals =} \DecValTok{1}\OperatorTok{:}\DecValTok{36}\NormalTok{)}
+\NormalTok{multi_raster_file =}\StringTok{ }\KeywordTok{system.file}\NormalTok{(}\StringTok{"raster/landsat.tif"}\NormalTok{, }\DataTypeTok{package =} \StringTok{"spDataLarge"}\NormalTok{)}
+\NormalTok{r_brick =}\StringTok{ }\KeywordTok{brick}\NormalTok{(multi_raster_file)}
+\NormalTok{r_brick}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## class      : RasterBrick 
+## dimensions : 1428, 1128, 1610784, 4  (nrow, ncol, ncell, nlayers)
+## resolution : 30, 30  (x, y)
+## extent     : 301905, 335745, 4111245, 4154085  (xmin, xmax, ymin, ymax)
+## crs        : +proj=utm +zone=12 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## source     : /Library/Frameworks/R.framework/Versions/3.6/Resources/library/spDataLarge/raster/landsat.tif 
+## names      : landsat.1, landsat.2, landsat.3, landsat.4 
+## min values :      7550,      6404,      5678,      5252 
+## max values :     19071,     22051,     25780,     31961
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nlayers}\NormalTok{(r_brick)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{raster_on_disk =}\StringTok{ }\KeywordTok{raster}\NormalTok{(r_brick, }\DataTypeTok{layer =} \DecValTok{1}\NormalTok{)}
+\NormalTok{raster_in_memory =}\StringTok{ }\KeywordTok{raster}\NormalTok{(}\DataTypeTok{xmn =} \DecValTok{301905}\NormalTok{, }\DataTypeTok{xmx =} \DecValTok{335745}\NormalTok{,}
+                          \DataTypeTok{ymn =} \DecValTok{4111245}\NormalTok{, }\DataTypeTok{ymx =} \DecValTok{4154085}\NormalTok{,}
+                          \DataTypeTok{res =} \DecValTok{30}\NormalTok{)}
+\KeywordTok{values}\NormalTok{(raster_in_memory) =}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\KeywordTok{seq_len}\NormalTok{(}\KeywordTok{ncell}\NormalTok{(raster_in_memory)))}
+\KeywordTok{crs}\NormalTok{(raster_in_memory) =}\StringTok{ }\KeywordTok{crs}\NormalTok{(raster_on_disk)}
+\NormalTok{r_stack =}\StringTok{ }\KeywordTok{stack}\NormalTok{(raster_in_memory, raster_on_disk)}
+\NormalTok{r_stack}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## class      : RasterStack 
+## dimensions : 1428, 1128, 1610784, 2  (nrow, ncol, ncell, nlayers)
+## resolution : 30, 30  (x, y)
+## extent     : 301905, 335745, 4111245, 4154085  (xmin, xmax, ymin, ymax)
+## crs        : +proj=utm +zone=12 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## names      :   layer, landsat.1 
+## min values :       1,      7550 
+## max values : 1610784,     19071
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# 2.4 Coordinate Reference Systems}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{GeoComputation_files/figure-latex/unnamed-chunk-1-6.pdf}
+
+\end{document}
