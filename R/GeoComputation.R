@@ -7,10 +7,28 @@ setwd("~/Documents/GitHub/GeoComputationWithR")
 # browseURL("_book/index.html") # to view it.
 
 
+# ##### Chapter 1 #####
+# Introduction
+# 1.1 What is geocomputation?
+
+# 1.2 Why use R for geocomputation?
+# install.packages("leaflet")
+library(leaflet)
+popup = c("Robin", "Jakub", "Jannes")
+leaflet() %>%
+  addProviderTiles("NASAGIBS.ViirsEarthAtNight2012") %>%
+  addMarkers(lng = c(-3, 23, 11),
+             lat = c(52, 53, 49),
+             popup = popup)
+
+# 1.3 Software for geocomputation
+# 1.4 R’s spatial ecosystem
+# 1.5 The history of R-spatial
+# 1.6 Exercises
+
 # ##### Chapter 2: Geographic Data in R #####
 # # Prerequisites:
 # # Install Packages:
-
 # # this step is to install library from github:
 # install.packages("devtools") #install devtools package. Do not run of devtools is alread present in your machine.
 # library(devtools) #load devtools before downloading packages from github.
@@ -66,6 +84,7 @@ plot(asia, add = TRUE, col = "red")
 # 2.2.4 Base plot arguments
 plot(world["continent"], reset = FALSE)
 cex = sqrt(world$pop) / 10000
+
 world_cents = st_centroid(world, of_largest = TRUE)
 # # I got this warning message after running above line of code. This might the resaon why map of India shrunk down and moved to mid-bottom of plot.
 # Warning messages:
@@ -73,6 +92,7 @@ world_cents = st_centroid(world, of_largest = TRUE)
 #   st_centroid assumes attributes are constant over geometries of x
 # 2: In st_centroid.sfc(st_geometry(x), of_largest_polygon = of_largest_polygon) :
 #   st_centroid does not give correct centroids for longitude/latitude data
+
 plot(st_geometry(world_cents), add = TRUE, cex = cex)
 india = world[world$name_long == "India", ]
 plot(st_geometry(india), expandBB = c(0, 0.2, 0.1, 1), col = "gray", lwd = 3) #When I run this code, the map shrink down to really tiny size and moves down to mid-bottom of plotting region.
@@ -159,7 +179,7 @@ points_sfc_wgs = st_sfc(point1, point2, crs = 4326)
 st_crs(points_sfc_wgs)
 
 # PROJ4STRING definition
-st_sfc(point1, point2, crs = "+proj=longlat +datum=WGS84 +no_defs") #Note: Sometimes st_crs() will return a proj4string but not an epsg code.
+st_sfc(point1, point2, crs = "+proj=longlat +datum=WGS84 +no_defs") # Note: Sometimes st_crs() will return a proj4string but not an epsg code.
 
 # 2.2.8 The sf class
 lnd_point = st_point(c(0.1, 51.5))                 # sfg object
@@ -209,3 +229,13 @@ r_stack = stack(raster_in_memory, raster_on_disk)
 r_stack
 
 # 2.4 Coordinate Reference Systems
+# 2.4.1 Geographic coordinate systems
+# 2.4.2 Projected coordinate reference systems
+# 2.4.3 CRSs in R
+crs_data = rgdal::make_EPSG()
+View(crs_data)
+vector_filepath = system.file("vector/zion.gpkg", package = "spDataLarge")
+new_vector = st_read(vector_filepath)
+st_crs(new_vector) # get CRS
+new_vector = st_set_crs(new_vector, 4326) # set CRS
+projection(new_raster) # get CRS
