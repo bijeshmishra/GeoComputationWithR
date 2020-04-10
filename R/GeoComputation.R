@@ -9,22 +9,30 @@ setwd("~/Documents/GitHub/GeoComputationWithR")
 
 # ##### Chapter 1 #####
 # Introduction
-# 1.1 What is geocomputation?
+# 1.1 What is geocomputation?: Closely related to Geographic Information science, geomatics, geoinformatics, spatial information science, geoinfomatiion engineering and geographical data science (GDS).
 
 # 1.2 Why use R for geocomputation?
 # install.packages("leaflet")
 library(leaflet)
-popup = c("Robin", "Jakub", "Jannes")
+popup = c("Bijesh", "Rajesh", "Shyam")
 leaflet() %>%
   addProviderTiles("NASAGIBS.ViirsEarthAtNight2012") %>%
   addMarkers(lng = c(-3, 23, 11),
              lat = c(52, 53, 49),
              popup = popup)
 
-# 1.3 Software for geocomputation
+# 1.3 Software for geocomputation: QGIS, GRASS and SAGA built on C++, C++ is fasst but hard to learn compared to python. Rcpp made C++ more accessible. Java is another important program.Python is important program for geocomputing. Packages: osgeo, Shapely, NumPy, PyGeoProcessing.
+
 # 1.4 R’s spatial ecosystem
 # 1.5 The history of R-spatial
+
 # 1.6 Exercises
+# Q1. Think about the terms "GIS" and "geocomputation" described above. Which (if any) best describe the work you would like to do  using geo* methods and software and why?
+# Q2. Provide three reasons for using a scriptable language such as R for geocomputation instead of using an established GIS program such as QGIS?
+# Q3. Name two advantages and two disadvantages of using mature vs recent packages for geographic data analysis (for example sf vs sp).
+# Note: Python modules providing access to geoalgorithms include grass.script for GRASS, saga-python for SAGA-GIS, processing for QGIS and arcpy for ArcGIS.
+
+# An overview of R’s spatial ecosystem can be found in the CRAN Task View on the Analysis of Spatial Data (see https://cran.r-project.org/web/views/Spatial.html).↩
 
 # ##### Chapter 2: Geographic Data in R #####
 # # Prerequisites:
@@ -37,9 +45,9 @@ leaflet() %>%
 
 # install.packages("raster")
 # install.packages("spData")
-# install.packages("devtools") #Install this package if you are installing packages from GitHub for the first time.
+# install.packages("devtools") #Install this package if you are installing packages from GitHub.
 # devtools::install_github("Nowosad/spDataLarge", force = TRUE) #Need to add "Force = TRUE" to install this package in my MAC.
-# install.packages("sf", type = "binary") #I installed binary version of sf. This installed sf package. Hopefully this works as sf.
+# install.packages("sf", type = "binary") #OSU IT People response: There is no such non-binary version. Homebrew and gdal packages are only necessary if you want to modify package. For, user, binary version is enough.
 
 # Load Libraries.
 library(raster) #class ad function for raster data.
@@ -239,3 +247,7 @@ new_vector = st_read(vector_filepath)
 st_crs(new_vector) # get CRS
 new_vector = st_set_crs(new_vector, 4326) # set CRS
 projection(new_raster) # get CRS
+# 2.4
+# 2.5
+# Excercise 4 and 5
+#Answer question in R or in word file.
